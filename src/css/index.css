@@ -1,0 +1,93 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+ul, li {
+    list-style: none;
+}
+[v-cloak]{
+    display: none !important;
+}
+.page {
+    height: 100vh;
+    display: flex;
+    overflow: hidden;
+    background-color: #00C091;
+}
+
+.page aside {
+    width: 275px;
+    border: 1px solid #26D5AB;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+.page aside .signInButtons,
+.page aside .signOutButton {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.page aside .signOutButton {
+    margin-bottom: 20px;
+}
+
+.page aside button {
+    width: 70%;
+    display: inline-block;
+    background-color: inherit;
+    color: #ffffff;
+    border: 1px solid #26D5AB;
+    font-size: 16px;
+    padding: 10px 0;
+    margin: 10px 0;
+    border-radius: 40px;
+    cursor: pointer;
+}
+
+.page aside button:hover {
+    color: #E5F8F3;
+}
+
+.page main {
+    flex-grow: 1;
+    overflow: auto;
+}
+.page .loginBox,
+.page .registerBox{
+    width:100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top:0;
+    left:0;
+    z-index: 1;
+}
+.page .loginBox .closeLogin,
+.page .registerBox .closeRegister{
+    position: absolute;
+    left: calc(50% + 115px);
+    top:calc(50% - 145px);
+}
+.page .loginBox .login,
+.page .registerBox .register{
+    padding:10px 20px;
+    background-color: white;
+    width:300px;
+    height:300px;
+
+}
+.page .loginBox .login h3,
+.page .registerBox .register h3{
+    text-align: center;
+}

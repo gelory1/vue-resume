@@ -1,0 +1,14 @@
+.editSpan{
+    position: relative;
+}
+.editSpan button{
+    height:100%;
+    position: absolute;
+    left:100%;
+    top:0;
+    display: none;
+    z-index: 1;
+}
+.editSpan:hover button{
+    display: inline-block;
+}
