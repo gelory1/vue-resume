@@ -13,12 +13,13 @@
 <div class="page" id="app">
     <aside>
         <div class="signInButtons">
-            <button @click="onClickSave">保存</button>
-            <button>分享</button>
+            <button @click="onClickSave" v-show="!previewVisible">保存</button>
+            <button @click="onClickShare" v-show="!previewVisible">分享</button>
             <button>打印</button>
-            <button>换肤</button>
+            <button v-show="!previewVisible">换肤</button>
+            <button v-show="previewVisible" @click="exitShare">退出预览</button>
         </div>
-        <div class="signOutButton" v-cloak>
+        <div class="signOutButton" v-show="!previewVisible" v-cloak>
             <button v-show="loginStaus" @click="logout">登出</button>
             <button v-show="!loginStaus" @click="registerBox = true;loginBox = false">注册</button>
             <button v-show="!loginStaus" @click="registerBox = false;loginBox = true">登录</button>
@@ -32,33 +33,33 @@
                 </div>
                 <div class="line"></div>
                 <h1>
-                    <edit-span v-bind:value="resume.name" v-on:update="updateData('name',$event)"></edit-span>
+                    <edit-span :value="resume.name" :disabled="previewVisible === true" @update="updateData('name',$event)"></edit-span>
                 </h1>
 
-                <p>应聘职位：<edit-span v-bind:value="resume.job" v-on:update="updateData('job',$event)"></edit-span></p>
+                <p>应聘职位：<edit-span v-bind:value="resume.job" :disabled="previewVisible === true" v-on:update="updateData('job',$event)"></edit-span></p>
                 <p>
-                    <edit-span v-bind:value="resume.birthday" v-on:update="updateData('birthday',$event)"></edit-span>
+                    <edit-span v-bind:value="resume.birthday" :disabled="previewVisible === true" v-on:update="updateData('birthday',$event)"></edit-span>
                     |
-                    <edit-span v-bind:value="resume.gender" v-on:update="updateData('gender',$event)"></edit-span>
+                    <edit-span v-bind:value="resume.gender" :disabled="previewVisible === true" v-on:update="updateData('gender',$event)"></edit-span>
                     |
-                    <edit-span v-bind:value="resume.degree" v-on:update="updateData('degree',$event)"></edit-span>
+                    <edit-span v-bind:value="resume.degree" :disabled="previewVisible === true" v-on:update="updateData('degree',$event)"></edit-span>
                     |
-                    <edit-span v-bind:value="resume.email" v-on:update="updateData('email',$event)"></edit-span>
+                    <edit-span v-bind:value="resume.email" :disabled="previewVisible === true" v-on:update="updateData('email',$event)"></edit-span>
                     |
-                    <edit-span v-bind:value="resume.phone" v-on:update="updateData('phone',$event)"></edit-span>
+                    <edit-span v-bind:value="resume.phone" :disabled="previewVisible === true" v-on:update="updateData('phone',$event)"></edit-span>
                 </p>
             </section>
             <section class="skills">
                 <h2>技能</h2>
                 <ul>
                     <li v-for="skill,index in resume.skills">
-                        <edit-span :value="skill.name" @update="updateData(`skills[${index}].name`,$event)"></edit-span>
+                        <edit-span :value="skill.name" :disabled="previewVisible === true" @update="updateData(`skills[${index}].name`,$event)"></edit-span>
                         <div class="description">
-                            <edit-span :value="skill.description" @update="updateData(`skills[${index}].description`,$event)"></edit-span>
+                            <edit-span :value="skill.description" :disabled="previewVisible === true" @update="updateData(`skills[${index}].description`,$event)"></edit-span>
                         </div>
-                        <div class="close" v-if="index >= 6" @click="removeSkills(index)">x</div>
+                        <div class="close" v-if="index >= 6" @click="removeSkills(index)" v-show="!previewVisible">x</div>
                     </li>
-                    <li>
+                    <li v-show="!previewVisible">
                         <span @click="addSkills">添加技能</span>
                         <div @click="addSkills">+</div>
                     </li>
@@ -69,18 +70,18 @@
                 <ol>
                     <li v-for="project,index in resume.projects">
                         <h3>
-                            <edit-span :value="project.name" @update="updateData(`projects[${index}].name`,$event)"></edit-span>
+                            <edit-span :value="project.name" :disabled="previewVisible === true" @update="updateData(`projects[${index}].name`,$event)"></edit-span>
                         </h3>
-                        <edit-span :value="project.link" @update="updateData(`projects[${index}].link`,$event)"></edit-span>
+                        <edit-span :value="project.link" :disabled="previewVisible === true" @update="updateData(`projects[${index}].link`,$event)"></edit-span>
                         <p>
-                            <edit-span :value="project.keywords" @update="updateData(`projects[${index}].keywords`,$event)"></edit-span>
+                            <edit-span :value="project.keywords" :disabled="previewVisible === true" @update="updateData(`projects[${index}].keywords`,$event)"></edit-span>
                         </p>
                         <p>
-                            <edit-span :value="project.description" @update="updateData(`projects[${index}].description`,$event)"></edit-span>
+                            <edit-span :value="project.description" :disabled="previewVisible === true" @update="updateData(`projects[${index}].description`,$event)"></edit-span>
                         </p>
-                        <div class="close" v-if="index >= 2" @click="removeProjects(index)">x</div>
+                        <div class="close" v-if="index >= 2" @click="removeProjects(index)" v-show="!previewVisible">x</div>
                     </li>
-                    <li>
+                    <li v-show="!previewVisible">
                         <span @click="addProjects">添加项目</span>
                         <div @click="addProjects">+</div>
                     </li>
@@ -94,7 +95,7 @@
             <h3>登录</h3>
             <div>
                 <label>账号</label>
-                <input type="text" v-model="login.account">
+                <input type="text" v-model="login.account" placeholder="邮箱">
             </div>
             <div>
                 <label>密码</label>
@@ -110,7 +111,7 @@
             <h3>注册</h3>
             <div>
                 <label>账号</label>
-                <input type="text" v-model="register.account">
+                <input type="text" v-model="register.account" placeholder="邮箱">
             </div>
             <div>
                 <label>密码</label>
@@ -120,6 +121,15 @@
             <span>已有账号？直接<a href="#" @click="jumpLogin">登录</a></span>
         </form>
         <button class="closeRegister" @click="closeRegister">关闭</button>
+    </div>
+    <div class="shareBox" v-show="shareVisible" v-cloak>
+        <div class="share">
+            <h3>复制以下链接进行分享</h3>
+            <label>
+                <textarea readonly>{{shareLink}}</textarea>
+            </label>
+            <span class="close" @click="shareVisible = false" v-show="!previewVisible">x</span>
+        </div>
     </div>
 </div>
 <script src="../venders/av-min.js"></script>

@@ -1,10 +1,10 @@
 Vue.component('edit-span', {
-    props: ['value'],
+    props: ['value','disabled'],
     template: `
         <span class="editSpan">
             <span v-show="!editing">{{value}}</span>
             <input v-show="editing" type="text" v-bind:value="value" v-on:input="emitUpdate">
-            <button v-on:click="editing = !editing">edit</button>
+            <button v-on:click="editing = !editing" v-if="!disabled">edit</button>
         </span>
     `,
     data: function(){
