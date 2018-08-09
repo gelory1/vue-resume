@@ -1,9 +1,12 @@
 let app = new Vue({
     el: '#app',
     data: {
+        shareVisible: false,
+        previewVisible: false,
         loginStaus: false,
         loginBox: false,
         registerBox: false,
+        shareLink: '',
         login: {
            account: '',
            password: ''
@@ -82,10 +85,14 @@ let app = new Vue({
                 this.closeLogin()
                 let currentUser = user.toJSON()
                 Object.assign(this.user,currentUser)
-                app.getResume()
                 this.loginStaus = true
-
-
+                if(userId){
+                    this.getResume({objectId:userId})
+                    this.previewVisible = true
+                }else{
+                    this.getResume(this.user)
+                    this.previewVisible = false
+                }
             }, function (error) {
                 if(error.code === 211){
                     alert('用户名/邮箱不存在')
@@ -113,6 +120,14 @@ let app = new Vue({
             }, function (error) {
                 alert(error.rawMessage)
             })
+        },
+        onClickShare(){
+            let user = AV.User.current()
+            if(user){
+                this.shareVisible = true
+            }else{
+                this.loginBox = true
+            }
         },
         onClickSave(){
             let user = AV.User.current()
@@ -148,7 +163,6 @@ let app = new Vue({
                 return '.'+ number
             })
             let arr = key.split('.')
-            console.log(arr);
             let result = this.resume
             for(let i = 0;i<arr.length;i++){
                 if(i === arr.length -1){
@@ -161,11 +175,10 @@ let app = new Vue({
                 }
             }
         },
-        getResume(){
+        getResume(currentUser){
             let query = new AV.Query('User');
-            query.get(this.user.objectId).then( (user)=> {
+            query.get(currentUser.objectId).then( (user)=> {
                 Object.assign(this.resume,user.toJSON().resume)
-                console.log(this.resume)
             }, function (error) {
                 // 异常处理
             });
@@ -181,6 +194,12 @@ let app = new Vue({
         },
         removeProjects(index){
             this.resume.projects.splice(index,1)
+        },
+        exitShare(){
+            let reloadUrl = location.origin + location.pathname
+            location.replace(reloadUrl)
+            this.previewVisible = false
+            this.getResume(this.user)
         }
     }
 });
@@ -188,8 +207,22 @@ let app = new Vue({
 let user = AV.User.current();
 if(user){
     app.user = user.toJSON()
-    app.getResume()
+    app.shareLink = location.origin + location.pathname + '?user_id=' + app.user.objectId
     app.loginStaus = true
-}else{
-    app.loginStaus = false
 }
+
+
+let search = location.search
+let reg = /user_id=([^&]+)/
+let matches = search.match(reg)
+let userId
+if(matches){
+    userId = matches[1]
+    app.getResume({objectId: userId})
+    app.previewVisible = true
+
+}else{
+    app.previewVisible = false
+    app.getResume(app.user)
+}
+
