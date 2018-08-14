@@ -4,19 +4,25 @@
     background-color: white;
     box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.2);
 }
-
+.page main.black .resumeWrapper{
+    background-color: black;
+}
 .page main .resumeWrapper section.header {
     text-align: center;
     position: relative;
 }
 
 .page main .resumeWrapper section.header .resumeHeader {
-    background-color: purple;
-    height:120px;
-    width:100%;
-    position: relative;
-    margin-bottom:70px;
+     background-color: purple;
+     height:120px;
+     width:100%;
+     position: relative;
+     margin-bottom:70px;
+ }
+.page main.black .resumeWrapper section.header .resumeHeader{
+    background-color: grey;
 }
+
 .page main .resumeWrapper section.header .resumeHeader::after{
     content: '';
     display: block;
