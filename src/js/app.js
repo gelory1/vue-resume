@@ -20,13 +20,13 @@ let app = new Vue({
             email: ''
         },
         resume: {
-            name: '耿朋',
-            birthday: '1990',
-            gender: '男',
-            degree: '学士',
-            job: '前端工程师',
-            email: '917589697@qq.com',
-            phone: '18530852241',
+            name: '姓名',
+            birthday: '生日',
+            gender: '性别',
+            degree: '学位',
+            job: '职位',
+            email: '邮箱',
+            phone: '电话',
             skills: [
                 {name: '请添加技能名称', description: '技能描述'},
                 {name: '请添加技能名称', description: '技能描述'},

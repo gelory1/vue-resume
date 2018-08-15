@@ -66,11 +66,6 @@ Vue.component('resume',{
         </div>
     </main>
     `,
-    data(){
-        return {
-
-        }
-    },
     methods:{
         removeSkills(index){
             this.resume.skills.splice(index,1)
