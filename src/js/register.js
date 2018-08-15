@@ -1,4 +1,4 @@
-Vue.component('register',{
+window.Register={
     template: `
         <div class="registerBox" v-cloak>
         <form class="register" @submit.prevent="submitRegister">
@@ -48,4 +48,5 @@ Vue.component('register',{
             })
         }
     }
-})
+}
+Vue.component('register',Register)

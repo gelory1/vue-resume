@@ -5,7 +5,7 @@ Vue.component('resume',{
         <div class="resumeWrapper">
             <section class="header">
                 <div class="resumeHeader">
-                    <div class="headImg"></div>
+                    <h1>个人简历</h1>
                 </div>
                 <div class="line"></div>
                 <h1>

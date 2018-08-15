@@ -12,23 +12,26 @@
 </head>
 <body>
 <div class="page" id="app">
-    <app-aside :previewvis="previewVisible" :loginsta="loginStatus === true" @open-login="loginBox = true"
-               @save-resume="saveResume" @open-share="shareVisible=true" @render="resume(user)"
-               @logout="resetData" @open-register="registerBox = true" @open-theme="themeVisible = true">
+    <app-aside :previewvis="previewVisible" :loginsta="loginStatus === true"
+               @save-resume="saveResume"  @render="resume(user)"
+               @logout="resetData"
+    >
     </app-aside>
     <resume :previewvis="previewVisible" :currentus="user" :resume="resume" :class="mainClass"></resume>
-    <login v-show="loginBox" @close-login="loginBox = false" @open-register="registerBox = true"
-           @login="submitLogin($event)"></login>
-    <register v-show="registerBox" @close-register="registerBox = false" @open-login="loginBox = true"
-              @register="submitRegister($event)"></register>
-    <share v-show="shareVisible" :sharelink="shareLink" @close-share="shareVisible = false"></share>
-    <theme  v-show="themeVisible" @themechange="setTheme($event)"></theme>
+
+    <router-view :sharelink="shareLink"
+                 @close-login="closeBox"
+                 @login="submitLogin($event)"
+                 @close-register="closeBox"
+                 @register="submitRegister($event)"
+                 @close-share="closeBox"
+                 @themechange="setTheme($event)"
+    ></router-view>
 </div>
 <script src="../venders/av-min.js"></script>
 <script src="../venders/vue.min.js"></script>
 <script src="../venders/vue-router.min.js"></script>
 <script src="js/av.js"></script>
-<script src="js/router.js"></script>
 <script src="js/edit-span.js"></script>
 <script src="js/login.js"></script>
 <script src="js/register.js"></script>

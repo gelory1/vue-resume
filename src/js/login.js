@@ -1,5 +1,4 @@
-Vue.component('login',{
-
+window.Login ={
     template: `
     <div class="loginBox" v-cloak>
         <form class="login" @submit.prevent="submitLogin">
@@ -18,14 +17,14 @@ Vue.component('login',{
         <button class="closeLogin" @click="$emit('close-login')">关闭</button>
     </div>
     `,
-    data(){
-        return {
-            login: {
-                account: '',
-                password: ''
-            }
+        data(){
+    return {
+        login: {
+            account: '',
+            password: ''
         }
-    },
+    }
+},
     methods:{
         jumpRegister(){
             this.$emit('close-login');
@@ -44,4 +43,6 @@ Vue.component('login',{
             })
         }
     }
-});
+}
+
+Vue.component('login',Login);

@@ -1,4 +1,4 @@
-Vue.component('theme',{
+window.Theme={
     template: `
     <div class="themeBox">
         <div class="theme">
@@ -12,4 +12,5 @@ Vue.component('theme',{
             this.$emit('themechange',name)
         }
     }
-})
+}
+Vue.component('theme',Theme)

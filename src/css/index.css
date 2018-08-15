@@ -38,8 +38,11 @@ ul, li {
 .page aside .signOutButton {
     margin-bottom: 20px;
 }
-
-.page aside button {
+a{
+    text-decoration:none; color:#000; outline:none;
+}
+.page aside button,
+.page aside a{
     width: 70%;
     display: inline-block;
     background-color: inherit;
@@ -50,9 +53,11 @@ ul, li {
     margin: 10px 0;
     border-radius: 40px;
     cursor: pointer;
+    text-align: center;
 }
 
-.page aside button:hover {
+.page aside button:hover ,
+.page aside a:hover{
     color: #E5F8F3;
 }
 

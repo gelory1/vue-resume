@@ -1,4 +1,4 @@
-Vue.component('share',{
+window.Share = {
     props:['sharelink'],
     template: `
         <div class="shareBox"  v-cloak>
@@ -11,4 +11,5 @@ Vue.component('share',{
         </div>
     </div>    
     `
-});
+}
+Vue.component('share',Share);

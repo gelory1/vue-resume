@@ -1,12 +1,18 @@
+const routes = [
+    { path: '/login', component: Login },
+    { path: '/register', component: Register },
+    { path: '/share', component: Share },
+    { path: '/theme', component: Theme }
+];
+const router = new VueRouter({
+    routes
+});
 let app = new Vue({
     el: '#app',
+    router,
     data: {
-        shareVisible: false,
         previewVisible: false,
         loginStatus: false,
-        loginBox: false,
-        registerBox: false,
-        themeVisible:false,
         mainClass: 'default',
         shareLink: '',
         user: {
@@ -61,7 +67,7 @@ let app = new Vue({
             }
         },
         submitLogin(user){
-                this.loginBox = false
+                this.closeBox()
                 let currentUser = user.toJSON();
                 Object.assign(this.user,currentUser);
                 this.loginStatus = true;
@@ -74,6 +80,7 @@ let app = new Vue({
                 }
         },
         submitRegister(user){
+            this.closeBox()
             let currentUser = user.toJSON();
             Object.assign(this.user,currentUser);
             this.loginStatus = true;
@@ -84,11 +91,8 @@ let app = new Vue({
             user.save();
             alert('保存成功')
         },
-        closeLogin(){
-            this.loginBox = false
-        },
-        closeRegister(){
-            this.registerBox = false
+        closeBox(){
+            location.hash = '#/'
         },
         getResume(currentus){
             let query = new AV.Query('User');
@@ -100,7 +104,7 @@ let app = new Vue({
         },
         setTheme(name){
             this.mainClass = name
-            this.themeVisible = false
+            this.closeBox()
         }
     }
 });
