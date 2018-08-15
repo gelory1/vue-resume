@@ -12,7 +12,7 @@ window.Login ={
                 <input type="password" v-model="login.password">
             </div>
             <button type="submit">提交</button>
-            <span>没有账号？点此<a href="#" @click="jumpRegister">注册</a></span>
+            <span>没有账号？点此<router-link to="/register" @click="jumpRegister">注册</router-link></span>
         </form>
         <button class="closeLogin" @click="$emit('close-login')">关闭</button>
     </div>
@@ -27,8 +27,7 @@ window.Login ={
 },
     methods:{
         jumpRegister(){
-            this.$emit('close-login');
-            this.$emit('open-register')
+            this.$emit('close-login')
         },
         submitLogin(){
             AV.User.logIn(this.login.account, this.login.password).then((user)=> {

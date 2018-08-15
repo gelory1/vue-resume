@@ -39,9 +39,6 @@
 .page main .resumeWrapper section.header .line{
     border: 0.1px solid;
 }
-.page main .resumeWrapper section.header h1{
-    margin: 20px 0;
-}
 .page main .resumeWrapper section.skills,
 .page main .resumeWrapper section.items{
     margin:20px;

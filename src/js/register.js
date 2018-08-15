@@ -12,7 +12,7 @@ window.Register={
                 <input type="password" v-model="register.password">
             </div>
             <button type="submit">提交</button>
-            <span>已有账号？直接<a href="#" @click="jumpLogin">登录</a></span>
+            <span>已有账号？直接<router-link to="/login" @click="jumpLogin">登录</router-link></span>
         </form>
         <button class="closeRegister" @click="$emit('close-register')">关闭</button>
     </div>
@@ -28,7 +28,6 @@ window.Register={
     methods: {
         jumpLogin(){
             this.$emit('close-register')
-            this.$emit('open-login')
         },
         submitRegister(){
             // 新建 AVUser 对象实例
